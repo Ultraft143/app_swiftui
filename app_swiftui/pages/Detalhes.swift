@@ -4,6 +4,7 @@ struct Detalhes: View {
     @State var articles: [String] = Array(repeating: "", count: 10)
     @State private var descricao: String = "";
     @State private var presencas: String = "";
+    @State private var showAlert: Bool = false;
     let URL_GET_TRACKBYID = "\(API)/getTrackbyid.php"
     
     var body: some View {
@@ -30,6 +31,7 @@ struct Detalhes: View {
                         LazyVStack {
                             ForEach(0..<articles.count, id: \.self) { index in
                                 TextField("Artigo \(index + 1):", text: $articles[index])
+                                    .disabled(true)
                                     .padding()
                                     .frame(width: 350, height: 50)
                                     .background(
@@ -98,29 +100,23 @@ struct Detalhes: View {
                                     .cornerRadius(30)
                         }
                         .offset(x:0,y:-40)
-                        NavigationLink(destination: ficheiros())
-                        {
-                                Text("🗂Ficheiros🗂")
-                                    .font(.callout)
-                                    .foregroundColor(.white)
-                                    .frame(width: 300, height: 30)
-                                    .background(Color.black.opacity(0.80))
-                                    .cornerRadius(30)
-                        }
-                        .offset(x:0,y:-25)
+
+                        
                         if(UserLoged == 0){
-                            NavigationLink(destination: questao())
-                            {
                                     Text("Colocar questões ao autor")
                                         .font(.callout)
                                         .foregroundColor(.white)
                                         .frame(width: 300, height: 30)
                                         .background(Color.black.opacity(0.80))
                                         .cornerRadius(30)
-                                        
-                            }
-                            .disabled(true)
-                            .offset(x:0,y:-10)
+                                        .onTapGesture {
+                                            showAlert = true
+                                        }
+                                        .alert(isPresented: $showAlert, content: {
+                                            Alert(title: Text("Erro"), message: Text("Voce não tem a sessão iniciada neste momento!"))
+                                        })
+                                        .offset(x:0,y:-20)
+                            
                         }
                         else{
                             NavigationLink(destination: questao())
@@ -132,7 +128,7 @@ struct Detalhes: View {
                                         .background(Color.black.opacity(0.80))
                                         .cornerRadius(30)
                             }
-                            .offset(x:0,y:-10)
+                            .offset(x:0,y:-30)
                         }
 
                     }
@@ -177,7 +173,12 @@ struct Detalhes: View {
                                 print("Error: Unable to retrieve titles from JSON response.")
                             }
                             descricao = jsonResponse["texto"] as! String
-                            presencas = jsonResponse["empresa"] as! String
+                            
+                            if let presencasjson = jsonResponse["empresa"] as? String {
+                                presencas = presencasjson
+                            } else {
+                                print("Error: Unable to retrieve titles from JSON response.")
+                            }
                             
                         } else {
                             print("Error: JSON parsing failed.")
@@ -195,6 +196,7 @@ struct Detalhes: View {
         task.resume()
     }
 }
+
 #Preview {
     Detalhes()
 }

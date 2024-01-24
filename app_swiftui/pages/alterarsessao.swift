@@ -142,8 +142,7 @@ struct alterarsessao: View {
                         
                         //adding the parameters to request body
                         request.httpBody = postParameters.data(using: String.Encoding.utf8)
-                        
-                        
+                                                
                         if($nomesessao.wrappedValue == ""){
                             //creating a task to send the post request
                             let task = URLSession.shared.dataTask(
@@ -221,7 +220,6 @@ struct alterarsessao: View {
                     do {
                         if let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
                             print("JSON response: \(jsonResponse)")
-                            //print(UserID)
                             if(TrackPicked == 0){
                                 nomesessao = "Erro!"
                             }else if(jsonResponse["nome"] as! String != ""){
@@ -241,7 +239,7 @@ struct alterarsessao: View {
                                 let datapass = jsonResponse["data"] as! String
                                 let horapass = jsonResponse["hora"] as! String
 
-                                if let dataDate = dateFormatter.date(from: datapass + horapass){
+                                if let dataDate = dateFormatter.date(from: datapass){
                                     self.data = dataDate
                                 } else {
                                     print("Error: Unable to convert datapass to date.")

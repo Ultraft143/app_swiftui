@@ -45,7 +45,7 @@ struct login: View {
                     
                     VStack {
                         
-                        Image(systemName:"helm")
+                        Image(systemName:"person.circle.fill")
                         
                             .resizable()
                         

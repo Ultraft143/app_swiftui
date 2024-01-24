@@ -33,7 +33,7 @@ struct presença: View {
         
         
         ZStack{
-            Color(.blue).ignoresSafeArea();
+            Color(.lightGray).ignoresSafeArea();
             
             Circle()
                 .scale(1.7)
