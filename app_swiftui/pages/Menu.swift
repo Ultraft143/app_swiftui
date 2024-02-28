@@ -24,7 +24,7 @@ struct Menu: View {
         } else {
             return items.filter { $0.localizedCaseInsensitiveContains(searchText) }
         }
-    }
+    } 
     
     var body: some View {
         NavigationView(){

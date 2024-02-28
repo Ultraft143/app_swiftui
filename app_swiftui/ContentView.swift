@@ -6,8 +6,8 @@
 //
 var IP = "192.168.28.132";
 var API = "http://\(IP)/webservice/api"
-var UserLoged = 1
-var UserID = 1
+var UserLoged = 0
+var UserID = 0
 var TrackPicked = 0
 var PerguntaID = "3"
 var useradmin = "1"
