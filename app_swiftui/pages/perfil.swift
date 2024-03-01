@@ -178,7 +178,7 @@ struct perfil: View {
                             if let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
                                 print("JSON response: \(jsonResponse)")
                                 //print(UserID)
-                                if(UserID == 0){
+                                if(UserID == "0"){
                                     username = "Erro!"
                                     email = "Nao foi possivel encontrar o utilizador"
                                     password = ""

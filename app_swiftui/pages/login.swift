@@ -213,22 +213,23 @@ struct login: View {
                             completionHandler: { data, response, error in
                                 DispatchQueue.main.async(execute:{
                                     do {
+                                        print(data as Any)
+                                        print(error as Any)
                                         if let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
                                             print("JSON response: \(jsonResponse)")
-                                            if(jsonResponse["error"] as! Int == 0){
-                                                UserLoged = 1
-                                                UserID = jsonResponse["id"] as! Int
-                                                alertuser = true
-                                            }
-                                            else{
-                                                alertuser = false
-                                            }
+                                            print(jsonResponse["id"] as Any)
+                                            
+                                            UserLoged = 1
+                                            UserID = jsonResponse["id"] as! String
+                                            alertuser = true
+                                            
                                             showAlert = true
                                         } else {
                                             print("Error: JSON parsing failed.")
                                             alertuser = false
                                             showAlert = true
                                         }
+                                        print(UserID)
                                     } catch {
                                         print("Error: JSON serialization failed.")
                                         alertuser = false
