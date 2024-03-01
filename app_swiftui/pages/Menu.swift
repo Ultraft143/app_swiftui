@@ -47,11 +47,15 @@ struct Menu: View {
 
                     
                     Spacer()
-                    NavigationLink(destination: sessao()){
-                        Image(systemName: "plus")
-                            .resizable()
-                            .frame(width: 30, height: 30)
+                    if(UserLoged == 1){
+                        NavigationLink(destination: sessao()){
+                            Image(systemName: "plus")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                        }
                     }
+
+
                     
                 }
                 .font(.title2)
